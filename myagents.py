@@ -40,10 +40,8 @@ def TableDrivenAgentProgram(table):
     percepts = []
 
     def program(percept):
-        action =None
-        """
-        Write your code here
-        """
+        percepts.append(percept)
+        action = table.get(tuple(percept))
         return action
 
     return program
@@ -171,9 +169,18 @@ class TrivialVacuumEnvironment(Environment):
         """Change agent's location and/or location's status; track performance.
         Score 10 for each dirt cleaned; -1 for each move."""
 
-        """
-        Write your code here
-        """
+       
+        if action == right :
+            agent.location = loc_B
+            agent.performance -= 1
+        elif action == left :
+            agent.location = loc_A
+            agent.performance -= 1
+        elif action == 'Suck' :
+            if self.status[agent.location] == 'dirty':
+                agent.performance +=10
+            self.status[agent.location] = clean
+       
 
     def default_location(self, thing):
         """Agents start in either location at random."""
