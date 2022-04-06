@@ -230,8 +230,9 @@ if __name__ == "__main__":
 ```
 
 ## OUTPUT
+![Screenshot (30)](https://user-images.githubusercontent.com/75235334/162023485-9724c76d-1c39-4730-aa30-6b9918e2f4c2.png)
+![Screenshot (31)](https://user-images.githubusercontent.com/75235334/162023515-5c97bd20-c8ad-40c0-9023-82fd904c5670.png)
 
-<img width="241" alt="out" src="https://user-images.githubusercontent.com/75235334/162012514-aec4bcd3-3fc2-4bd4-96ce-8f2a1d9a03c5.png">
 
 ## RESULT
 Thus, an AI agent was developed and PEAS description is given.
