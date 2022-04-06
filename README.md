@@ -12,9 +12,9 @@ The agent can move left or right and can clean the square that it occupies.
 
 
 ## PEAS DESCRIPTION
-| Agent type    | performance  measurement    |environment  |   Actuators         |  sensors                       | 
-|-------------  | --------------------------- | ----------- |-------------------- | ------------------------------ | 
-| vaccum cleaner| cleanliness,numberof moments| Rooms       |  wheels,suction tool|  location,cleanliness          |
+| Agent type    | performance  measurement      |environment  |   Actuators         |  sensors                       | 
+|-------------  | ---------------------------   | ----------- |-------------------- | ------------------------------ | 
+| vaccum cleaner| cleanliness ,number of moments| Rooms       |  wheels,suction tool|  location, cleanliness         |
 
 
 ## DESIGN STEPS
