@@ -33,7 +33,7 @@ Implementing the AI agent
 Measure the performance parameters
 
 ## PROGRAM
-```
+```python
 import random
 
 class Thing:
