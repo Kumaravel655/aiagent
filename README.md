@@ -224,12 +224,9 @@ if __name__ == "__main__":
     agent = TableDrivenVacuumAgent()
     environment = TrivialVacuumEnvironment()
     environment.add_thing(agent)
-    print('\033[1m' + 'Before Action\n' + '\033[0m',environment.status)
-    print('\033[1m' + 'Agent Location\n' + '\033[0m',agent.location)
-    environment.run(steps=1)
-    print('\033[1m' + 'After Action\n' + '\033[0m',environment.status)
-    print('\033[1m' + 'Agent Location\n' + '\033[0m',agent.location)
-    print('\033[1m' + 'Agent Performance\n' + '\033[0m',agent.performance)
+    print(environment.status)
+    environment.run()
+    print(agent.performance)
 ```
 
 ## OUTPUT
