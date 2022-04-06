@@ -180,6 +180,7 @@ class TrivialVacuumEnvironment(Environment):
             if self.status[agent.location]=='Dirty':
                 agent.performance+=10
             self.status[agent.location]='Clean'
+
        
 
     def default_location(self, thing):
