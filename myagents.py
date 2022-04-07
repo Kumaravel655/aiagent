@@ -1,4 +1,13 @@
 import random
+import time
+
+class Thing:
+    """
+        This represents any physical object that can appear in an Environment.
+    """
+
+    import random
+
 class Thing:
     """
         This represents any physical object that can appear in an Environment.
@@ -44,7 +53,7 @@ def TableDrivenAgentProgram(table):
 
     return program
 
-loc_A, loc_B, loc_C, loc_D, loc_E, loc_F, loc_G, loc_H, loc_I = (0,0), (0,1), (0,2), (1,2), (1,1), (1,0), (2,0), (2,1), (2,2) # The two locations for the Vacuum world
+loc_A, loc_B, loc_C, loc_D, loc_E, loc_F = (0,0), (0,1), (0,2), (1,2), (1,1), (1,0) # The two locations for the Vacuum world
 #G-20 H-21 I-22
 #F-10 E-11 D-12
 #A-00 B-01 C-02
@@ -57,20 +66,16 @@ def TableDrivenVacuumAgent():
              (loc_A, 'Dirty'): 'Suck',
              (loc_B, 'Clean'): 'Right2',
              (loc_B, 'Dirty'): 'Suck',
-             (loc_C, 'Clean'): 'Up1',
+             (loc_C, 'Clean'): 'Up',
              (loc_C, 'Dirty'): 'Suck',
              (loc_D, 'Clean'): 'Left1',
              (loc_D, 'Dirty'): 'Suck',
              (loc_E, 'Clean'): 'Left2',
              (loc_E, 'Dirty'): 'Suck',
-             (loc_F, 'Clean'): 'Up2',
+             (loc_F, 'Clean'): 'Down',
              (loc_F, 'Dirty'): 'Suck',
-             (loc_G, 'Clean'): 'Right3',
-             (loc_G, 'Dirty'): 'Suck',
-             (loc_H, 'Clean'): 'Right4',
-             (loc_H, 'Dirty'): 'Suck',
-             (loc_I, 'Clean'): 'Start',
-             (loc_I, 'Dirty'): 'Suck',
+             
+             
     }
     return Agent(TableDrivenAgentProgram(table))
 #right1,2,3,4 start left1,2 up1,2
@@ -169,10 +174,7 @@ class TrivialVacuumEnvironment(Environment):
                        loc_C: random.choice(['Clean', 'Dirty']),
                        loc_D: random.choice(['Clean', 'Dirty']),
                        loc_E: random.choice(['Clean', 'Dirty']),
-                       loc_F: random.choice(['Clean', 'Dirty']),
-                       loc_G: random.choice(['Clean', 'Dirty']),
-                       loc_H: random.choice(['Clean', 'Dirty']),
-                       loc_I: random.choice(['Clean', 'Dirty']),}
+                       loc_F: random.choice(['Clean', 'Dirty']),}        
 
     def thing_classes(self):
         return [ TableDrivenVacuumAgent]
@@ -180,54 +182,58 @@ class TrivialVacuumEnvironment(Environment):
     def percept(self, agent):
         """Returns the agent's location, and the location status (Dirty/Clean)."""
         return agent.location, self.status[agent.location]
-
+    def clean_check(self):
+        number_of_clean_rooms=0
+        for key in [loc_A, loc_B, loc_C, loc_D, loc_E, loc_F]:
+            if self.status[key] =='Clean':
+                number_of_clean_rooms=number_of_clean_rooms+1
+        return number_of_clean_rooms
     def execute_action(self, agent, action):
         """Change agent's location and/or location's status; track performance.
         Score 10 for each dirt cleaned; -1 for each move."""
-        if action=='Right1':
-            agent.location = loc_B
-            agent.performance -=1
-        elif action=='Right2':
-            agent.location = loc_C
-            agent.performance -=1
-        elif action=='Right3':
-            agent.location = loc_H
-            agent.performance -=1
-        elif action=='Right4':
-            agent.location = loc_I
-            agent.performance -=1
-        elif action=='Left1':
-            agent.location = loc_E
-            agent.performance -=1
-        elif action=='Left2':
-            agent.location = loc_F
-            agent.performance -=1
-        elif action=='Up1':
-            agent.location = loc_D
-            agent.performance -=1
-        elif action=='Up2':
-            agent.location = loc_G
-            agent.performance -=1
-        elif action=='Start':
-            agent.location = loc_A
-            agent.performance -=1
-        elif action=='Suck':
-            if self.status[agent.location]=='Dirty':
-                agent.performance+=10
-            self.status[agent.location]='Clean'
+        if (self.clean_check()!=9):
+            
+            if action=='Right1':
+                agent.location = loc_B
+                agent.performance -=1
+            elif action=='Right2':
+                agent.location = loc_C
+                agent.performance -=1
+            elif action=='Left1':
+                agent.location = loc_E
+                agent.performance -=1
+            elif action=='Left2':
+                agent.location = loc_F
+                agent.performance -=1
+            elif action=='Up':
+                agent.location = loc_D
+                agent.performance -=1
+            elif action=='Start':
+                agent.location = loc_A
+                agent.performance -=1
+            elif action=='Suck':
+                if self.status[agent.location]=='Dirty':
+                    agent.performance+=10
+                self.status[agent.location]='Clean'
 
     def default_location(self, thing):
         """Agents start in either location at random."""
-        return random.choice([loc_A, loc_B, loc_C, loc_D, loc_E, loc_F, loc_G, loc_H, loc_I])
+        return random.choice([loc_A, loc_B, loc_C, loc_D, loc_E, loc_F])
 
 
 if __name__ == "__main__":
     agent = TableDrivenVacuumAgent()
     environment = TrivialVacuumEnvironment()
     environment.add_thing(agent)
-    print('Before Action\n',environment.status)
-    print('Agent Location\n',agent.location)
-    environment.run(steps=15)
-    print('After Action\n' ,environment.status)
-    print('Agent Location\n',agent.location)
-    print('Agent Performance\n',agent.performance)
+    print('Agent Before Action\n\n',environment.status)
+    print('\nAgent Location : ',agent.location)
+    print('\nAgent Performance : ',agent.performance)
+    print("\nClean rooms : ",environment.clean_check())
+
+    environment.run(steps=6)
+    print('\n\nAgent after Action\n\n',environment.status)
+    print('\nAgent Location : ',agent.location)
+    print('\nAgent Performance : ',agent.performance)
+    print("\nClean rooms : ",environment.clean_check())
+        
+
