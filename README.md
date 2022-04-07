@@ -271,8 +271,7 @@ if __name__ == "__main__":
 ```
 
 ## OUTPUT
-![Screenshot (39)](https://user-images.githubusercontent.com/75235334/162246842-3c01a324-f2ca-4c3b-80eb-0d3f2c3306a2.png)
-
+![Screenshot (39)](https://user-images.githubusercontent.com/75235334/162247239-be18b7ce-730c-40dd-9836-eaf9e55ef648.png)
 
 ## RESULT
 Thus, an AI agent was developed and PEAS description is given.
